@@ -36,6 +36,8 @@ local Toggle = tabs.main:CreateToggle({
 	end,
 })
 
+local autocollectvalue = false
+
 tabs.main:CreateToggle({
     Name = "Auto Collect",
     CurrentValue = false,
@@ -44,8 +46,9 @@ tabs.main:CreateToggle({
         local toggle = 0 -- 0 for fire, 1 for un-fire
         local touch = tycoon.Essentials.CurrencyCollector.Giver
         local touch2 = player.Character.HumanoidRootPart
+        autocollectvalue = value
         
-        while value and wait() do
+        while autocollectvalue and wait() do
             if toggle == 0 then
                 toggle = 1
             else
@@ -109,13 +112,14 @@ local Toggle = tabs.autofarm:CreateToggle({
 	end,
 })
 
-
+local autore = false
 local Toggle = tabs.autofarm:CreateToggle({
 	Name = "Toggle Auto Rebirth",
 	CurrentValue = false,
 	Flag = "Toggle1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
 	Callback = function(Value)
-		while Value and wait() do
+	    autore = Value
+		while autore and wait() do
 		    game:GetService("ReplicatedStorage").TycoonEvent:FireServer("Rebirth")
 		    wait(60)
 		end
