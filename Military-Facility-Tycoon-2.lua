@@ -36,20 +36,25 @@ local Toggle = tabs.main:CreateToggle({
 	end,
 })
 
-local togglevalue = 0
-
-local Button = tabs.main:CreateButton({
-	Name = "Auto Collect",
-	Callback = function()
-		while wait() do
-            if togglevalue == 0 then
-                togglevalue = 1
+tabs.main:CreateToggle({
+    Name = "Auto Collect",
+    CurrentValue = false,
+    Flag = "autocollect", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+    Callback = function(value)
+        local toggle = 0 -- 0 for fire, 1 for un-fire
+        local touch = tycoon.Essentials.CurrencyCollector.Giver
+        local touch2 = player.Character.HumanoidRootPart
+        
+        while value and wait() do
+            if toggle == 0 then
+                toggle = 1
             else
-                togglevalue = 0
+                toggle = 0
             end
-            firetouchinterest(touch2, touch, togglevalue)
+            
+            firetouchinterest(touch2, touch, toggle)
         end
-	end,
+    end,
 })
 
 
